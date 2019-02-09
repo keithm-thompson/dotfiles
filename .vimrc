@@ -21,6 +21,9 @@ syntax on
 
 let mapleader = ","
 
+let &shell='/bin/zsh'
+let $ZDOTDIR=$HOME
+
 " Make backspace behave in a sane manner.
 set backspace=indent,eol,start
 
@@ -50,6 +53,8 @@ nmap <Leader>gs :!git status<CR>
 nmap <Leader>ga :!git add -i<CR>
 nmap <Leader>gc :!git commit<CR>
 nmap <Leader>t :Files<CR>
+nmap <Leader>gh :0Glog<CR><CR><CR>
+nmap <Leader>gd :Gvdiff
 nmap j gj
 nmap k gk
 nmap \ :Buffers<CR>
@@ -57,16 +62,17 @@ map <Leader>/ :BLines<CR>
 map <Leader>o o<esc>
 map <Leader>O O<esc>
 
+
 " Enable file type detection and do language-dependent indenting.
 filetype plugin indent on
 
-autocmd FileType ruby,eruby,yaml setlocal ai sw=2 sts=2 et
+autocmd FileType javascript,ruby,eruby,yaml setlocal ai sw=2 sts=2 et
 
 " we like line numbers, especially relative line numbers
 set number
 set relativenumber
 
-set tabstop=2 softtabstop=2 shiftwidth=2 noexpandtab
+set tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
 " add a space before pasting
 
@@ -81,6 +87,9 @@ Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'morhetz/gruvbox'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-unimpaired'
+Plug 'elixir-editors/vim-elixir'
 call plug#end()
 
 
@@ -88,7 +97,7 @@ colorscheme gruvbox
 set background=dark
 
 " ale config
-let g:ale_linters = {'ruby': ['rubocop']}
+let g:ale_linters = {'ruby': ['rubocop'], 'elixir': ['elixir-ls']}
 let g:ale_ruby_rubocop_executable = 'bundle'
 let g:ale_ruby_rubocop_options = ''
 let g:ale_sign_warning = '▲'
