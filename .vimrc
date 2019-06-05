@@ -22,6 +22,7 @@ syntax on
 let mapleader = ","
 
 let &shell='/bin/zsh'
+set shell=/bin/zsh
 let $ZDOTDIR=$HOME
 
 " Make backspace behave in a sane manner.
@@ -45,6 +46,9 @@ set showcmd
 set clipboard=unnamed
 set noshowmode
 set laststatus=2
+set backupdir=~/.tmp
+set directory=~/.tmp
+set grepprg=ag
 
 nnoremap <leader><CR> :!
 nnoremap <leader><space> i<space><esc>
@@ -61,12 +65,16 @@ nmap \ :Buffers<CR>
 map <Leader>/ :BLines<CR>
 map <Leader>o o<esc>
 map <Leader>O O<esc>
-
+nmap <Leader>r :call RunCurrentSpecFile()<CR>
+nmap <Leader>rs :call RunNearestSpec()<CR>
+nmap <Leader>rl :call RunLastSpec()<CR>
+nmap <Leader>ra :call RunAllSpecs()<CR>
 
 " Enable file type detection and do language-dependent indenting.
 filetype plugin indent on
 
-autocmd FileType javascript,ruby,eruby,yaml setlocal ai sw=2 sts=2 et
+autocmd FileType javascript,ruby,eruby,yaml setlocal ai sw=2 sts=2 et shiftround
+autocmd FileType ruby,eruby,yaml setlocal iskeyword+=?
 
 " we like line numbers, especially relative line numbers
 set number
@@ -90,6 +98,9 @@ Plug 'morhetz/gruvbox'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-unimpaired'
 Plug 'elixir-editors/vim-elixir'
+Plug 'mxw/vim-jsx'
+Plug 'tpope/vim-commentary'
+Plug 'thoughtbot/vim-rspec'
 call plug#end()
 
 
@@ -102,7 +113,8 @@ let g:ale_ruby_rubocop_executable = 'bundle'
 let g:ale_ruby_rubocop_options = ''
 let g:ale_sign_warning = '▲'
 let g:ale_sign_error = '✗'
-
+let g:rspec_runner = "os_x_iterm2"
+let g:rspec_command = "!clear && bin/rspec {spec}"
 highlight link ALEWarningSign String
 highlight link ALEErrorSign Title
 
