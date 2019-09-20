@@ -22,7 +22,7 @@ syntax on
 let mapleader = ","
 
 let &shell='/bin/zsh'
-set shell=/bin/zsh
+set shell=bash
 let $ZDOTDIR=$HOME
 
 " Make backspace behave in a sane manner.
@@ -65,6 +65,8 @@ nmap \ :Buffers<CR>
 map <Leader>/ :BLines<CR>
 map <Leader>o o<esc>
 map <Leader>O O<esc>
+map <leader>q :cg quickfix.out \| cwindow<CR>
+map <leader>Q :ccl<CR>
 nmap <Leader>r :call RunCurrentSpecFile()<CR>
 nmap <Leader>rs :call RunNearestSpec()<CR>
 nmap <Leader>rl :call RunLastSpec()<CR>
@@ -114,7 +116,7 @@ let g:ale_ruby_rubocop_options = ''
 let g:ale_sign_warning = '▲'
 let g:ale_sign_error = '✗'
 let g:rspec_runner = "os_x_iterm2"
-let g:rspec_command = "!clear && bin/rspec {spec}"
+let g:rspec_command = "!clear && rspec --format progress --require ~/code/rspec_support/quickfix_formatter.rb --format QuickfixFormatter --out quickfix.out {spec}\n"
 highlight link ALEWarningSign String
 highlight link ALEErrorSign Title
 
